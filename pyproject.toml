@@ -1,0 +1,31 @@
+[project]
+name = "md2epub"
+version = "0.1.0"
+description = "Convert a Markdown file into a well-typeset EPUB 3 book."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "lxml>=5.3",
+    "markdown-it-py>=3.0",
+    "mdit-py-plugins>=0.4",
+    "pillow>=11.0",
+    "pygments>=2.18",
+    "pyyaml>=6.0",
+]
+
+[project.scripts]
+md2epub = "md2epub.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[build-system]
+requires = ["uv_build>=0.8"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

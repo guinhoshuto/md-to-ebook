@@ -1,0 +1,197 @@
+{
+  "teste": "out=$(.venv/bin/python -m pytest -q -p no:cacheprovider -rf tests 2>&1); rc=$?; printf '%s\\n' \"$out\"; n=$(printf '%s\\n' \"$out\" | grep -Eo '[0-9]+ (passed|failed)' | awk '{s+=$1} END {if (s) print s}'); if [ -n \"$n\" ] && ! printf '%s\\n' \"$out\" | grep -Eq '[0-9]+ errors?( |$)'; then echo \"Ran $n tests\"; fi; printf '%s\\n' \"$out\" | sed -n 's/^FAILED /FAIL: /p'; exit $rc",
+  "mutacoes": [
+    {
+      "arquivo": "md2epub/epub.py",
+      "de": "archive.writestr(entry(\"mimetype\", zipfile.ZIP_STORED)",
+      "para": "archive.writestr(entry(\"mimetype\", zipfile.ZIP_DEFLATED)",
+      "por_que": "mimetype compressed"
+    },
+    {
+      "arquivo": "md2epub/book.py",
+      "de": "        chapter.body.append(section)\n",
+      "para": "        chapters[0].body.append(section)\n",
+      "por_que": "all notes in the first chapter"
+    },
+    {
+      "arquivo": "md2epub/book.py",
+      "de": "a.set(\"href\", f\"{owner[target]}#{target}\")",
+      "para": "a.set(\"href\", f\"#{target}\")",
+      "por_que": "cross-chapter link not rewritten"
+    },
+    {
+      "arquivo": "md2epub/book.py",
+      "de": "if not slug or not slug[0].isalpha():",
+      "para": "if not slug:",
+      "por_que": "id may start with a digit"
+    },
+    {
+      "arquivo": "md2epub/book.py",
+      "de": "        while slug in used:",
+      "para": "        while False:",
+      "por_que": "duplicate heading ids"
+    },
+    {
+      "arquivo": "md2epub/book.py",
+      "de": "if levels.count(1) == 1 and levels[0] == 1:",
+      "para": "if False:",
+      "por_que": "single H1 not taken as title"
+    },
+    {
+      "arquivo": "md2epub/parse.py",
+      "de": "return best if scores[best] > 0 else \"en\"",
+      "para": "return best",
+      "por_que": "no English fallback"
+    },
+    {
+      "arquivo": "md2epub/parse.py",
+      "de": "\"es\": \"«»“”\",",
+      "para": "\"es\": \"“”‘’\",",
+      "por_que": "Spanish quotes"
+    },
+    {
+      "arquivo": "md2epub/book.py",
+      "de": "if a.lower().startswith(\"on\")",
+      "para": "if a.lower().startswith(\"xx\")",
+      "por_que": "event handlers kept"
+    },
+    {
+      "arquivo": "md2epub/book.py",
+      "de": "        if caption:\n",
+      "para": "        if False:\n",
+      "por_que": "no figcaption"
+    },
+    {
+      "arquivo": "md2epub/book.py",
+      "de": "for root in filter(None, [self.base_dir, self.vault]):",
+      "para": "for root in filter(None, [self.base_dir]):",
+      "por_que": "vault attachments not searched"
+    },
+    {
+      "arquivo": "md2epub/book.py",
+      "de": "quote.tag = \"div\"",
+      "para": "quote.tag = \"blockquote\"",
+      "por_que": "callout stays a blockquote"
+    },
+    {
+      "arquivo": "md2epub/parse.py",
+      "de": "result += [_html_token(\"<mark>\"), _text_token(match.group(1)), _html_token(\"</mark>\")]",
+      "para": "result += [_text_token(match.group(1))]",
+      "por_que": "no <mark>"
+    },
+    {
+      "arquivo": "md2epub/book.py",
+      "de": "timestamp = int(epoch) if epoch else int(source.stat().st_mtime)",
+      "para": "timestamp = int(source.stat().st_mtime)",
+      "por_que": "SOURCE_DATE_EPOCH ignored"
+    },
+    {
+      "arquivo": "md2epub/epub.py",
+      "de": "manifest.append((Path(image.name).stem, f\"images/{image.name}\", image.media_type, \"\"))",
+      "para": "pass",
+      "por_que": "image missing from manifest"
+    },
+    {
+      "arquivo": "md2epub/epub.py",
+      "de": "nav_page(book, cover is not None), props=\"nav\")",
+      "para": "nav_page(book, cover is not None), props=\"\")",
+      "por_que": "nav property missing"
+    },
+    {
+      "arquivo": "md2epub/cover.py",
+      "de": "WIDTH, HEIGHT = 1600, 2560",
+      "para": "WIDTH, HEIGHT = 1400, 2560",
+      "por_que": "cover size"
+    },
+    {
+      "arquivo": "md2epub/book.py",
+      "de": "cover_image = resolve_cover(cover, front, source) if wants_cover else None",
+      "para": "cover_image = None",
+      "por_que": "given cover ignored"
+    },
+    {
+      "arquivo": "md2epub/book.py",
+      "de": "wants_cover = cover is not False and front.get(\"cover\") is not False",
+      "para": "wants_cover = True",
+      "por_que": "--no-cover ignored"
+    },
+    {
+      "arquivo": "md2epub/parse.py",
+      "de": "CODE_FORMATTER = HtmlFormatter(nowrap=True, classprefix=\"tok-\")",
+      "para": "CODE_FORMATTER = HtmlFormatter(nowrap=True)",
+      "por_que": "token classes unprefixed"
+    },
+    {
+      "arquivo": "md2epub/book.py",
+      "de": "        remove_keep_tail(backref)\n",
+      "para": "        pass\n",
+      "por_que": "backref arrow kept in the note"
+    },
+    {
+      "arquivo": "md2epub/epub.py",
+      "de": "f'{indent}  <content src=\"text/{e(entry.href)}\"/>\\n'",
+      "para": "f'{indent}  <content src=\"{e(entry.href)}\"/>\\n'",
+      "por_que": "NCX paths wrong"
+    },
+    {
+      "arquivo": "md2epub/book.py",
+      "de": "if int(heading.tag[1]) == base + 1:",
+      "para": "if int(heading.tag[1]) == base + 2:",
+      "por_que": "no subsections in the TOC"
+    },
+    {
+      "arquivo": "md2epub/book.py",
+      "de": "heading.tag = f\"h{max(1, int(heading.tag[1]) - shift)}\"",
+      "para": "pass",
+      "por_que": "chapter headings not shifted to h1"
+    },
+    {
+      "arquivo": "md2epub/book.py",
+      "de": "warn(f\"image not found: {src}\")",
+      "para": "pass",
+      "por_que": "missing image not reported"
+    },
+    {
+      "arquivo": "md2epub/book.py",
+      "de": "match = re.match(r\"(\\s*)((?:\\S+\\s+){0,2}\\S+)\", paragraph.text)",
+      "para": "match = re.match(r\"(\\s*)((?:\\S+\\s+){0,0}\\S+)\", paragraph.text)",
+      "por_que": "lead-in only one word"
+    },
+    {
+      "arquivo": "md2epub/book.py",
+      "de": "            add_lead_in(first)\n",
+      "para": "            pass\n",
+      "por_que": "no lead-in"
+    },
+    {
+      "arquivo": "md2epub/parse.py",
+      "de": "hang = len(source) - len(source.lstrip(\" \")) + 2",
+      "para": "hang = 2",
+      "por_que": "hanging indent ignores the line indent"
+    },
+    {
+      "arquivo": "md2epub/parse.py",
+      "de": "options = {\"stripnl\": False, \"tabsize\": 4}",
+      "para": "options = {\"stripnl\": True, \"tabsize\": 4}",
+      "por_que": "leading blank line shifts the indents"
+    },
+    {
+      "arquivo": "md2epub/parse.py",
+      "de": "    md.add_render_rule(\"code_block\", render_code_block)\n",
+      "para": "",
+      "por_que": "indented code blocks without line spans"
+    },
+    {
+      "arquivo": "md2epub/book.py",
+      "de": "                        target = slugify(target)\n",
+      "para": "                        pass\n",
+      "por_que": "accented GitHub fragment not matched"
+    },
+    {
+      "arquivo": "md2epub/book.py",
+      "de": "                    local_files.append(href)\n",
+      "para": "                    pass\n",
+      "por_que": "local links not reported"
+    }
+  ]
+}

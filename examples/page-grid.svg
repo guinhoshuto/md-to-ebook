@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" width="480" height="320">
+  <rect x="0" y="0" width="480" height="320" fill="#fbf8f2"/>
+  <g fill="none" stroke="#3a3a3a" stroke-width="2">
+    <rect x="40" y="30" width="180" height="260"/>
+    <rect x="260" y="30" width="180" height="260"/>
+  </g>
+  <g fill="#3a3a3a" opacity="0.18">
+    <rect x="70" y="60" width="120" height="190"/>
+    <rect x="290" y="60" width="120" height="190"/>
+  </g>
+  <g stroke="#b5562d" stroke-width="1.5" stroke-dasharray="4 4">
+    <line x1="70" y1="20" x2="70" y2="300"/>
+    <line x1="190" y1="20" x2="190" y2="300"/>
+    <line x1="290" y1="20" x2="290" y2="300"/>
+    <line x1="410" y1="20" x2="410" y2="300"/>
+  </g>
+  <g font-family="Georgia, serif" font-size="14" fill="#3a3a3a" text-anchor="middle">
+    <text x="130" y="275">verso</text>
+    <text x="350" y="275">recto</text>
+  </g>
+</svg>

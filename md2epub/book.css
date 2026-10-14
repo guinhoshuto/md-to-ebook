@@ -1,0 +1,468 @@
+@charset "UTF-8";
+/*
+ * md2epub book stylesheet.
+ * Reading apps let the reader pick fonts, size, margins and theme, so sizes are relative,
+ * body text has no colour of its own, and tints use translucent grey that works on white,
+ * sepia and night backgrounds alike.
+ */
+
+/* ------------------------------------------------------------------ base */
+
+html {
+  font-size: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Charter, Georgia, serif;
+  line-height: 1.5;
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures;
+  text-rendering: optimizeLegibility;
+  -webkit-hyphens: auto;
+  -epub-hyphens: auto;
+  hyphens: auto;
+  widows: 2;
+  orphans: 2;
+}
+
+p {
+  margin: 0;
+  text-indent: 0;
+  text-align: justify;
+}
+
+/* Book convention: only a paragraph that follows another paragraph is indented. */
+p + p {
+  text-indent: 1.4em;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(128, 128, 128, 0.6);
+  text-underline-offset: 0.15em;
+}
+
+strong, b {
+  font-weight: bold;
+}
+
+em, i, cite {
+  font-style: italic;
+}
+
+mark {
+  color: inherit;
+  background-color: rgba(255, 204, 0, 0.35);
+  padding: 0 0.08em;
+}
+
+abbr {
+  font-variant: small-caps;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+}
+
+sup, sub {
+  font-size: 0.72em;
+  line-height: 0;
+}
+
+/* ------------------------------------------------------------------ headings */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+  line-height: 1.25;
+  text-align: left;
+  text-indent: 0;
+  -webkit-hyphens: manual;
+  -epub-hyphens: manual;
+  hyphens: manual;
+  page-break-after: avoid;
+  break-after: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+h1 {
+  font-size: 1.9em;
+  margin: 2.5em 0 1.4em;
+  text-align: center;
+}
+
+/* The heading that opens a chapter: centred, with a short rule beneath. */
+h1.chapter-title {
+  margin: 3.2em 0 2.2em;
+  letter-spacing: 0.01em;
+}
+
+h1.chapter-title::after {
+  content: "";
+  display: block;
+  width: 2.6em;
+  margin: 0.75em auto 0;
+  border-top: 1px solid currentColor;
+  opacity: 0.45;
+}
+
+h2 {
+  font-size: 1.35em;
+  margin: 2.2em 0 0.8em;
+}
+
+h3 {
+  font-size: 1.12em;
+  font-style: italic;
+  margin: 1.8em 0 0.6em;
+}
+
+h4 {
+  font-size: 1em;
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+  margin: 1.6em 0 0.5em;
+}
+
+h5, h6 {
+  font-size: 0.95em;
+  font-weight: bold;
+  margin: 1.4em 0 0.4em;
+}
+
+/* The first words of a chapter, in small capitals. */
+span.lead-in {
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
+
+/* ------------------------------------------------------------------ blocks */
+
+blockquote {
+  margin: 1.2em 1.6em;
+  font-size: 0.96em;
+}
+
+blockquote p {
+  text-align: left;
+}
+
+hr {
+  width: 25%;
+  height: 0;
+  margin: 1.9em auto;
+  border: 0;
+  border-top: 1px solid currentColor;
+  opacity: 0.45;
+}
+
+ul, ol {
+  margin: 0.9em 0;
+  padding-left: 1.6em;
+}
+
+li {
+  margin: 0.25em 0;
+}
+
+li p {
+  text-align: left;
+}
+
+li p + p {
+  text-indent: 0;
+  margin-top: 0.4em;
+}
+
+li > ul, li > ol {
+  margin: 0.2em 0;
+}
+
+ul.contains-task-list {
+  list-style: none;
+  padding-left: 0.3em;
+}
+
+.task-box {
+  display: inline-block;
+  width: 1.4em;
+  text-indent: 0;
+}
+
+dl {
+  margin: 1em 0;
+}
+
+dt {
+  font-weight: bold;
+  margin-top: 0.7em;
+  page-break-after: avoid;
+  break-after: avoid;
+}
+
+dd {
+  margin: 0.2em 0 0 1.6em;
+}
+
+dd p {
+  text-align: left;
+}
+
+/* Obsidian callouts: > [!note] Title */
+div.callout {
+  margin: 1.4em 0;
+  padding: 0.75em 1em;
+  border-left: 3px solid rgba(128, 128, 128, 0.55);
+  background-color: rgba(128, 128, 128, 0.09);
+  font-size: 0.94em;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+div.callout p {
+  text-align: left;
+}
+
+div.callout p + p {
+  text-indent: 0;
+  margin-top: 0.5em;
+}
+
+p.callout-title {
+  font-weight: bold;
+  margin-bottom: 0.35em;
+}
+
+/* Coloured edge by callout type (div. prefix so these outrank div.callout). */
+div.callout-note, div.callout-info, div.callout-abstract, div.callout-summary, div.callout-tldr, div.callout-todo {
+  border-left-color: rgba(52, 120, 210, 0.8);
+}
+
+div.callout-tip, div.callout-hint, div.callout-important, div.callout-success, div.callout-check, div.callout-done {
+  border-left-color: rgba(40, 150, 95, 0.8);
+}
+
+div.callout-warning, div.callout-caution, div.callout-attention, div.callout-question, div.callout-help, div.callout-faq {
+  border-left-color: rgba(220, 140, 20, 0.85);
+}
+
+div.callout-danger, div.callout-error, div.callout-bug, div.callout-failure, div.callout-fail, div.callout-missing {
+  border-left-color: rgba(205, 55, 55, 0.8);
+}
+
+/* ------------------------------------------------------------------ code */
+
+code, kbd, samp, pre {
+  font-family: "SF Mono", Menlo, Consolas, "DejaVu Sans Mono", "Liberation Mono", monospace;
+  -webkit-hyphens: none;
+  -epub-hyphens: none;
+  hyphens: none;
+}
+
+code, kbd, samp {
+  font-size: 0.84em;
+  padding: 0.06em 0.28em;
+  border-radius: 0.2em;
+  background-color: rgba(128, 128, 128, 0.13);
+}
+
+kbd {
+  border: 1px solid rgba(128, 128, 128, 0.45);
+}
+
+/* Reading apps cannot scroll sideways, so long lines wrap. */
+pre {
+  margin: 1.3em 0;
+  padding: 0.85em 1em;
+  font-size: 0.78em;
+  line-height: 1.45;
+  text-align: left;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  background-color: rgba(128, 128, 128, 0.09);
+  border-radius: 0.35em;
+}
+
+pre code {
+  font-size: 1em;
+  padding: 0;
+  background: none;
+  border-radius: 0;
+}
+
+/* One block per source line; md2epub sets a hanging indent on each, so wrapped lines stay under their code. */
+pre span.line {
+  display: block;
+}
+
+/* ------------------------------------------------------------------ tables */
+
+table {
+  margin: 1.5em auto;
+  border-collapse: collapse;
+  border-top: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  font-size: 0.88em;
+  line-height: 1.35;
+  font-variant-numeric: tabular-nums lining-nums;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+th, td {
+  padding: 0.4em 0.75em;
+  text-align: left;
+  vertical-align: top;
+}
+
+thead th {
+  font-weight: bold;
+  border-bottom: 1px solid currentColor;
+}
+
+tbody tr + tr td {
+  border-top: 1px solid rgba(128, 128, 128, 0.25);
+}
+
+/* ------------------------------------------------------------------ figures */
+
+figure {
+  margin: 1.6em 0;
+  text-align: center;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+figure img {
+  max-height: 85vh;
+}
+
+figcaption {
+  margin-top: 0.6em;
+  font-size: 0.85em;
+  font-style: italic;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.missing-image {
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* ------------------------------------------------------------------ footnotes */
+
+sup.footnote-ref a {
+  text-decoration: none;
+  padding: 0 0.1em;
+}
+
+section.footnotes {
+  margin-top: 3em;
+  font-size: 0.86em;
+  line-height: 1.4;
+}
+
+section.footnotes::before {
+  content: "";
+  display: block;
+  width: 30%;
+  margin-bottom: 1em;
+  border-top: 1px solid currentColor;
+  opacity: 0.4;
+}
+
+aside.footnote {
+  margin: 0 0 0.7em;
+}
+
+aside.footnote p {
+  text-align: left;
+}
+
+aside.footnote p + p {
+  text-indent: 0;
+  margin-top: 0.4em;
+}
+
+a.footnote-number {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* ------------------------------------------------------------------ title page */
+
+section.titlepage {
+  margin-top: 5em;
+  text-align: center;
+}
+
+section.titlepage p {
+  text-align: center;
+  text-indent: 0;
+}
+
+h1.title {
+  font-size: 2.3em;
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+  text-align: center;
+}
+
+p.subtitle {
+  font-size: 1.15em;
+  font-style: italic;
+  margin-bottom: 1.6em;
+}
+
+hr.title-rule {
+  width: 3em;
+  margin: 1.8em auto 2em;
+}
+
+p.author {
+  font-size: 0.95em;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-top: 0.4em;
+}
+
+p.imprint {
+  margin-top: 7em;
+  font-size: 0.8em;
+  letter-spacing: 0.08em;
+  opacity: 0.75;
+}
+
+/* ------------------------------------------------------------------ contents page */
+
+nav#toc ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav#toc li {
+  margin: 0.55em 0;
+  line-height: 1.35;
+}
+
+nav#toc li li {
+  margin: 0.3em 0 0.3em 1.4em;
+  font-size: 0.9em;
+}
+
+nav#toc a {
+  text-decoration: none;
+}
+
+nav[hidden] {
+  display: none;
+}
